@@ -1,0 +1,139 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "KI Enhetsforbruk",
+        "description": "Choose the price sensors used to calculate cost. You can optionally add several devices right away by selecting their energy sensors. Devices can later be added, edited and deleted individually.",
+        "data": {
+          "name": "Name",
+          "spot_price_entity": "Spot price sensor",
+          "norgespris_entity": "Norgespris sensor",
+          "add_sources": "Energy sensors to add as devices"
+        },
+        "data_description": {
+          "spot_price_entity": "Current total price in NOK/kWh (øre/kWh is converted automatically).",
+          "norgespris_entity": "Optional. Current Norgespris in NOK/kWh. Leave empty to skip Norgespris sensors.",
+          "add_sources": "Each selected sensor becomes a device. Names are taken from the sensor and can be changed later."
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Settings",
+        "description": "Change price sensors, or add many devices at once.",
+        "data": {
+          "spot_price_entity": "Spot price sensor",
+          "norgespris_entity": "Norgespris sensor",
+          "add_sources": "Add energy sensors as new devices"
+        },
+        "data_description": {
+          "norgespris_entity": "Clear the field to remove all Norgespris sensors.",
+          "add_sources": "Sensors that are already in use are skipped."
+        }
+      }
+    }
+  },
+  "config_subentries": {
+    "device": {
+      "entry_type": "Device",
+      "initiate_flow": {
+        "user": "Add device",
+        "reconfigure": "Edit device"
+      },
+      "step": {
+        "user": {
+          "title": "Add device",
+          "data": {
+            "source_entity": "Energy sensor (kWh)",
+            "name": "Name"
+          },
+          "data_description": {
+            "source_entity": "A cumulative energy sensor, e.g. from a smart plug.",
+            "name": "Optional. Taken from the energy sensor if left empty."
+          }
+        },
+        "reconfigure": {
+          "title": "Edit device",
+          "data": {
+            "source_entity": "Energy sensor (kWh)",
+            "name": "Name"
+          },
+          "data_description": {
+            "source_entity": "Changing the sensor keeps the values counted so far.",
+            "name": "Optional. Taken from the energy sensor if left empty."
+          }
+        }
+      },
+      "error": {
+        "source_in_use": "This energy sensor is already used by another device."
+      },
+      "abort": {
+        "reconfigure_successful": "The device has been updated."
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "energy_day": {
+        "name": "Energy today",
+        "state_attributes": {
+          "last_period": { "name": "Yesterday" },
+          "source_entity": { "name": "Energy sensor" }
+        }
+      },
+      "energy_month": {
+        "name": "Energy this month",
+        "state_attributes": {
+          "last_period": { "name": "Last month" },
+          "source_entity": { "name": "Energy sensor" }
+        }
+      },
+      "cost_spot_day": {
+        "name": "Cost today (spot price)",
+        "state_attributes": {
+          "last_period": { "name": "Yesterday" },
+          "source_entity": { "name": "Energy sensor" },
+          "price_entity": { "name": "Price sensor" }
+        }
+      },
+      "cost_spot_month": {
+        "name": "Cost this month (spot price)",
+        "state_attributes": {
+          "last_period": { "name": "Last month" },
+          "source_entity": { "name": "Energy sensor" },
+          "price_entity": { "name": "Price sensor" }
+        }
+      },
+      "cost_norgespris_day": {
+        "name": "Cost today (Norgespris)",
+        "state_attributes": {
+          "last_period": { "name": "Yesterday" },
+          "source_entity": { "name": "Energy sensor" },
+          "price_entity": { "name": "Price sensor" }
+        }
+      },
+      "cost_norgespris_month": {
+        "name": "Cost this month (Norgespris)",
+        "state_attributes": {
+          "last_period": { "name": "Last month" },
+          "source_entity": { "name": "Energy sensor" },
+          "price_entity": { "name": "Price sensor" }
+        }
+      }
+    }
+  },
+  "services": {
+    "calibrate": {
+      "name": "Calibrate",
+      "description": "Sets the value of an energy or cost sensor manually, e.g. to correct a faulty reading.",
+      "fields": {
+        "value": {
+          "name": "Value",
+          "description": "New value (kWh for energy sensors, NOK for cost sensors)."
+        }
+      }
+    }
+  }
+}

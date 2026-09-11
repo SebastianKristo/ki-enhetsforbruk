@@ -1,0 +1,13 @@
+{
+  "entity": {
+    "sensor": {
+      "cost_spot_day": { "default": "mdi:cash-clock" },
+      "cost_spot_month": { "default": "mdi:cash-multiple" },
+      "cost_norgespris_day": { "default": "mdi:cash-lock" },
+      "cost_norgespris_month": { "default": "mdi:cash-lock" }
+    }
+  },
+  "services": {
+    "calibrate": { "service": "mdi:counter" }
+  }
+}

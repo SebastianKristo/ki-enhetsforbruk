@@ -1,0 +1,13 @@
+{
+  "domain": "ki_enhetsforbruk",
+  "name": "KI Enhetsforbruk",
+  "codeowners": ["@DITT-GITHUB-BRUKERNAVN"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/DITT-GITHUB-BRUKERNAVN/ki-enhetsforbruk",
+  "integration_type": "service",
+  "iot_class": "calculated",
+  "issue_tracker": "https://github.com/DITT-GITHUB-BRUKERNAVN/ki-enhetsforbruk/issues",
+  "requirements": [],
+  "version": "1.0.0"
+}

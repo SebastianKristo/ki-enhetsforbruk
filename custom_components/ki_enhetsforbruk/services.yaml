@@ -1,0 +1,13 @@
+calibrate:
+  target:
+    entity:
+      integration: ki_enhetsforbruk
+      domain: sensor
+  fields:
+    value:
+      required: true
+      example: "12.5"
+      selector:
+        number:
+          mode: box
+          step: any

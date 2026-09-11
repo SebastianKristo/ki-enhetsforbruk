@@ -1,0 +1,139 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "KI Enhetsforbruk",
+        "description": "Velg prissensorene som brukes til å regne ut kostnad. Du kan også legge til mange enheter med en gang ved å velge energisensorene deres. Enheter kan senere legges til, redigeres og slettes enkeltvis.",
+        "data": {
+          "name": "Navn",
+          "spot_price_entity": "Spotpris-sensor",
+          "norgespris_entity": "Norgespris-sensor",
+          "add_sources": "Energisensorer som skal legges til som enheter"
+        },
+        "data_description": {
+          "spot_price_entity": "Gjeldende totalpris i kr/kWh (øre/kWh konverteres automatisk).",
+          "norgespris_entity": "Valgfri. Gjeldende Norgespris i kr/kWh. La stå tom for å droppe Norgespris-sensorer.",
+          "add_sources": "Hver valgte sensor blir en enhet. Navnet hentes fra sensoren og kan endres senere."
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Innstillinger",
+        "description": "Endre prissensorer, eller legg til mange enheter på en gang.",
+        "data": {
+          "spot_price_entity": "Spotpris-sensor",
+          "norgespris_entity": "Norgespris-sensor",
+          "add_sources": "Legg til energisensorer som nye enheter"
+        },
+        "data_description": {
+          "norgespris_entity": "Tøm feltet for å fjerne alle Norgespris-sensorer.",
+          "add_sources": "Sensorer som allerede er i bruk hoppes over."
+        }
+      }
+    }
+  },
+  "config_subentries": {
+    "device": {
+      "entry_type": "Enhet",
+      "initiate_flow": {
+        "user": "Legg til enhet",
+        "reconfigure": "Rediger enhet"
+      },
+      "step": {
+        "user": {
+          "title": "Legg til enhet",
+          "data": {
+            "source_entity": "Energisensor (kWh)",
+            "name": "Navn"
+          },
+          "data_description": {
+            "source_entity": "En akkumulerende energisensor, f.eks. fra en smartplugg.",
+            "name": "Valgfritt. Hentes fra energisensoren hvis tomt."
+          }
+        },
+        "reconfigure": {
+          "title": "Rediger enhet",
+          "data": {
+            "source_entity": "Energisensor (kWh)",
+            "name": "Navn"
+          },
+          "data_description": {
+            "source_entity": "Bytter du sensor, beholdes verdiene som er talt opp så langt.",
+            "name": "Valgfritt. Hentes fra energisensoren hvis tomt."
+          }
+        }
+      },
+      "error": {
+        "source_in_use": "Denne energisensoren brukes allerede av en annen enhet."
+      },
+      "abort": {
+        "reconfigure_successful": "Enheten er oppdatert."
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "energy_day": {
+        "name": "Energi i dag",
+        "state_attributes": {
+          "last_period": { "name": "I går" },
+          "source_entity": { "name": "Energisensor" }
+        }
+      },
+      "energy_month": {
+        "name": "Energi denne måneden",
+        "state_attributes": {
+          "last_period": { "name": "Forrige måned" },
+          "source_entity": { "name": "Energisensor" }
+        }
+      },
+      "cost_spot_day": {
+        "name": "Kostnad i dag (spotpris)",
+        "state_attributes": {
+          "last_period": { "name": "I går" },
+          "source_entity": { "name": "Energisensor" },
+          "price_entity": { "name": "Prissensor" }
+        }
+      },
+      "cost_spot_month": {
+        "name": "Kostnad denne måneden (spotpris)",
+        "state_attributes": {
+          "last_period": { "name": "Forrige måned" },
+          "source_entity": { "name": "Energisensor" },
+          "price_entity": { "name": "Prissensor" }
+        }
+      },
+      "cost_norgespris_day": {
+        "name": "Kostnad i dag (Norgespris)",
+        "state_attributes": {
+          "last_period": { "name": "I går" },
+          "source_entity": { "name": "Energisensor" },
+          "price_entity": { "name": "Prissensor" }
+        }
+      },
+      "cost_norgespris_month": {
+        "name": "Kostnad denne måneden (Norgespris)",
+        "state_attributes": {
+          "last_period": { "name": "Forrige måned" },
+          "source_entity": { "name": "Energisensor" },
+          "price_entity": { "name": "Prissensor" }
+        }
+      }
+    }
+  },
+  "services": {
+    "calibrate": {
+      "name": "Kalibrer",
+      "description": "Setter verdien på en energi- eller kostnadssensor manuelt, f.eks. for å rette opp en feilmåling.",
+      "fields": {
+        "value": {
+          "name": "Verdi",
+          "description": "Ny verdi (kWh for energisensorer, kr for kostnadssensorer)."
+        }
+      }
+    }
+  }
+}
